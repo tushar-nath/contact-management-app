@@ -4,7 +4,9 @@ import {
   selectContacts,
   deleteContact,
   updateContact,
+  addContact,
 } from "../reducers/contactReducer";
+import Modal from "react-modal";
 
 interface Contact {
   id: number;
@@ -17,6 +19,12 @@ const ContactList: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [editedContact, setEditedContact] = useState<Contact | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newContact, setNewContact] = useState<Contact>({
+    id: 0,
+    name: "",
+    email: "",
+  });
 
   const handleViewDetails = (contact: Contact) => {
     setSelectedContact(contact);
@@ -34,6 +42,22 @@ const ContactList: React.FC = () => {
     if (editedContact) {
       dispatch(updateContact(editedContact));
       setEditedContact(null);
+    }
+  };
+
+  const handleCreateContact = () => {
+    setShowCreateModal(true);
+  };
+
+  const handleCloseCreateModal = () => {
+    setShowCreateModal(false);
+  };
+
+  const handleAddContact = () => {
+    if (newContact.name && newContact.email) {
+      dispatch(addContact(newContact));
+      setNewContact({ id: 0, name: "", email: "" });
+      setShowCreateModal(false);
     }
   };
 
@@ -86,6 +110,30 @@ const ContactList: React.FC = () => {
           <button onClick={handleSaveContact}>Save</button>
         </div>
       )}
+
+      <button onClick={handleCreateContact}>Create Contact</button>
+
+      <Modal isOpen={showCreateModal} onRequestClose={handleCloseCreateModal}>
+        <h2>Create Contact</h2>
+        <input
+          type="text"
+          placeholder="Name"
+          value={newContact.name}
+          onChange={(e) =>
+            setNewContact({ ...newContact, name: e.target.value })
+          }
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={newContact.email}
+          onChange={(e) =>
+            setNewContact({ ...newContact, email: e.target.value })
+          }
+        />
+        <button onClick={handleAddContact}>Add Contact</button>
+        <button onClick={handleCloseCreateModal}>Cancel</button>
+      </Modal>
     </div>
   );
 };
