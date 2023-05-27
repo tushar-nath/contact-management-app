@@ -1,12 +1,16 @@
 import React from "react";
-import "./index.css";
+import ContactForm from "./components/ContactForm";
+import ContactList from "./components/ContactList";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <div className="text-9xl">Hello world</div>
+    <div>
+      <h1>Add Contact</h1>
+      <ContactForm />
+      <h1>Contact List</h1>
+      <ContactList />
     </div>
   );
-}
+};
 
 export default App;
