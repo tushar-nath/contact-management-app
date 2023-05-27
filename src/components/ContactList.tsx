@@ -15,7 +15,6 @@ interface Contact {
 }
 
 const ContactList: React.FC = () => {
-  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [editedContact, setEditedContact] = useState<Contact | null>(null);
@@ -35,6 +34,7 @@ const ContactList: React.FC = () => {
   };
 
   const handleDeleteContact = (contact: Contact) => {
+    console.log(contact);
     dispatch(deleteContact(contact.id));
   };
 
@@ -53,47 +53,76 @@ const ContactList: React.FC = () => {
     setShowCreateModal(false);
   };
 
+  const contacts = useSelector(selectContacts);
+
+  const maxId = Math.max(...contacts.map((contact) => contact.id), 0);
+
   const handleAddContact = () => {
     if (newContact.name && newContact.email) {
-      dispatch(addContact(newContact));
+      const newContactWithId = {
+        ...newContact,
+        id: maxId + 1,
+      };
+      dispatch(addContact(newContactWithId));
       setNewContact({ id: 0, name: "", email: "" });
       setShowCreateModal(false);
     }
   };
 
   return (
-    <div>
+    <div className="bg-off-white p-4">
       <ul>
         {contacts.map((contact: Contact) => (
-          <li key={contact.id}>
-            <strong>Name:</strong> {contact.name}, <strong>Email:</strong>{" "}
-            {contact.email}
-            <button onClick={() => handleViewDetails(contact)}>
+          <li className="mt-4 p-4 bg-slate-100 rounded shadow" key={contact.id}>
+            <h2 className="text-xl font-bold">{contact.name}</h2>
+            <p className="text-gray-800">
+              <strong>Email:</strong> {contact.email}
+            </p>
+            <button
+              className="mt-2 bg-blue-700 text-white py-2 mr-2 px-4 rounded"
+              onClick={() => handleViewDetails(contact)}
+            >
               View Details
             </button>
-            <button onClick={() => handleEditContact(contact)}>Edit</button>
-            <button onClick={() => handleDeleteContact(contact)}>Delete</button>
+            <button
+              className="mt-2 bg-green-700 text-white py-2 mx-2 px-4 rounded"
+              onClick={() => handleEditContact(contact)}
+            >
+              Edit
+            </button>
+            <button
+              className="mt-2 bg-red-500 text-white py-2 mx-2 px-4 rounded"
+              onClick={() => handleDeleteContact(contact)}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
 
       {selectedContact && (
-        <div>
-          <h2>Contact Details</h2>
-          <p>
+        <div className="mt-4 p-4 bg-white rounded shadow">
+          <h2 className="text-xl font-bold">Contact Details</h2>
+          <p className="text-gray-800">
             <strong>Name:</strong> {selectedContact.name}
           </p>
-          <p>
+          <p className="text-gray-800">
             <strong>Email:</strong> {selectedContact.email}
           </p>
-          <button onClick={() => setSelectedContact(null)}>Close</button>
+          <button
+            className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={() => setSelectedContact(null)}
+          >
+            Close
+          </button>
         </div>
       )}
 
       {editedContact && (
-        <div>
+        <div className="mt-4 p-4 bg-white rounded shadow">
           <h2>Edit Contact</h2>
           <input
+            className="mb-2 p-1 border rounded"
             type="text"
             value={editedContact.name}
             onChange={(e) =>
@@ -101,21 +130,36 @@ const ContactList: React.FC = () => {
             }
           />
           <input
+            className="mb-2 p-1 border rounded"
             type="email"
             value={editedContact.email}
             onChange={(e) =>
               setEditedContact({ ...editedContact, email: e.target.value })
             }
           />
-          <button onClick={handleSaveContact}>Save</button>
+          <button
+            className="mt-2 bg-blue-700 text-white py-2 mx-2 px-4 rounded"
+            onClick={handleSaveContact}
+          >
+            Save
+          </button>
         </div>
       )}
 
-      <button onClick={handleCreateContact}>Create Contact</button>
-
-      <Modal isOpen={showCreateModal} onRequestClose={handleCloseCreateModal}>
-        <h2>Create Contact</h2>
+      <button
+        className="mt-4 bg-blue-700 text-white py-2 px-4 rounded mx-auto block"
+        onClick={handleCreateContact}
+      >
+        Create Contact
+      </button>
+      <Modal
+        isOpen={showCreateModal}
+        onRequestClose={handleCloseCreateModal}
+        className="w-64 sm:w-96 bg-white rounded p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+      >
+        <h2 className="text-lg font-bold mb-2 text-center">Create Contact</h2>
         <input
+          className="mb-2 p-1 border rounded mx-auto w-full"
           type="text"
           placeholder="Name"
           value={newContact.name}
@@ -124,6 +168,7 @@ const ContactList: React.FC = () => {
           }
         />
         <input
+          className="mb-2 p-1 border rounded mx-auto w-full"
           type="email"
           placeholder="Email"
           value={newContact.email}
@@ -131,8 +176,20 @@ const ContactList: React.FC = () => {
             setNewContact({ ...newContact, email: e.target.value })
           }
         />
-        <button onClick={handleAddContact}>Add Contact</button>
-        <button onClick={handleCloseCreateModal}>Cancel</button>
+        <div className="flex justify-center">
+          <button
+            className="mr-2 bg-green-500 text-white py-2 px-4 rounded"
+            onClick={handleAddContact}
+          >
+            Add Contact
+          </button>
+          <button
+            className="bg-red-500 text-white py-2 px-4 rounded"
+            onClick={handleCloseCreateModal}
+          >
+            Cancel
+          </button>
+        </div>
       </Modal>
     </div>
   );
