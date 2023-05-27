@@ -155,7 +155,7 @@ const ContactList: React.FC = () => {
       <Modal
         isOpen={showCreateModal}
         onRequestClose={handleCloseCreateModal}
-        className="w-64 sm:w-96 bg-white rounded p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+        className="w-64 sm:w-96 bg-slate-100 rounded p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
       >
         <h2 className="text-lg font-bold mb-2 text-center">Create Contact</h2>
         <input
