@@ -19,6 +19,8 @@ const ContactList: React.FC = () => {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [editedContact, setEditedContact] = useState<Contact | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [newContact, setNewContact] = useState<Contact>({
     id: 0,
     name: "",
@@ -27,10 +29,12 @@ const ContactList: React.FC = () => {
 
   const handleViewDetails = (contact: Contact) => {
     setSelectedContact(contact);
+    setShowViewModal(true);
   };
 
   const handleEditContact = (contact: Contact) => {
     setEditedContact(contact);
+    setShowEditModal(true);
   };
 
   const handleDeleteContact = (contact: Contact) => {
@@ -109,8 +113,12 @@ const ContactList: React.FC = () => {
       </ul>
 
       {selectedContact && (
-        <div className="mt-4 p-4 bg-white rounded shadow">
-          <h2 className="text-xl font-bold">Contact Details</h2>
+        <Modal
+          isOpen={showViewModal}
+          onRequestClose={() => setShowViewModal(false)}
+          className="w-64 sm:w-96 bg-white rounded p-4 border border-solid border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+        >
+          <h2 className="text-xl font-bold mb-2">Contact Details</h2>
           <p className="text-gray-800">
             <strong>Name:</strong> {selectedContact.name}
           </p>
@@ -119,16 +127,20 @@ const ContactList: React.FC = () => {
           </p>
           <button
             className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-8 rounded-lg border border-solid mt-2"
-            onClick={() => setSelectedContact(null)}
+            onClick={() => setShowViewModal(false)}
           >
             Close
           </button>
-        </div>
+        </Modal>
       )}
 
       {editedContact && (
-        <div className="mt-4 p-4 bg-white rounded shadow">
-          <h2 className="text-xl font-bold">Edit Contact</h2>
+        <Modal
+          isOpen={showEditModal}
+          onRequestClose={() => setShowEditModal(false)}
+          className="w-64 sm:w-96 bg-white rounded p-4 border border-solid border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+        >
+          <h2 className="text-xl font-bold mb-2">Edit Contact</h2>
           <input
             className="mb-2 p-1 border rounded"
             type="text"
@@ -146,17 +158,18 @@ const ContactList: React.FC = () => {
             }
           />
           <button
-            className="mt-2 bg-[#131313] text-white pt-2 pb-1 ml-3 px-6 rounded"
+            className="mt-2 bg-[#131313] text-white pt-2 pb-1 ml-1 px-6 rounded-lg border border-solid"
             onClick={handleSaveContact}
           >
             Save
           </button>
-        </div>
+        </Modal>
       )}
+
       <Modal
         isOpen={showCreateModal}
         onRequestClose={handleCloseCreateModal}
-        className="w-64 sm:w-96 bg-[#F8F8F8] rounded-2xl p-4 border border-solid border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+        className="w-64 sm:w-96 bg-white rounded p-4 border border-solid border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
       >
         <h2 className="text-lg font-bold mb-2 text-center">Create Contact</h2>
         <input
