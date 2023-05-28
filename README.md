@@ -46,3 +46,9 @@ To set up the basic structure of the app and configure the necessary tools, foll
 8. Configure TailwindCSS by updating the `tailwind.config.js` file with the necessary configurations.
 9. Set up Redux by installing the required dependencies: `npm install react-redux redux @types/react-redux`
 10. Create the necessary Redux files (actions, reducers, store) for managing the contact data.
+
+## Screenshots
+
+![Screenshot 2023-05-28 at 8 00 47 PM](https://github.com/tushar-nath/contact-management-app/assets/50198727/785e41cf-9f90-4dd5-9192-7aef92a109ab)
+
+![Screenshot 2023-05-28 at 8 01 38 PM](https://github.com/tushar-nath/contact-management-app/assets/50198727/17f16157-8d24-4c78-a2e0-52b3dbcc259f)
