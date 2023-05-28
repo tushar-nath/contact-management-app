@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -10,25 +10,11 @@ const icon = new L.Icon({
   iconAnchor: [13, 41],
 });
 
-export function DetailPage() {
-  const [markers, setMarkers] = useState([]);
+interface DetailPageProps {
+  markers: any[]; // Update the type as per your marker data structure
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://disease.sh/v3/covid-19/countries"
-        );
-        const data = await response.json();
-        setMarkers(data);
-      } catch (error) {
-        console.log("Error fetching marker data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+export function DetailPage({ markers }: DetailPageProps) {
   const calculateMapCenter = (): LatLngExpression => {
     if (markers.length > 0) {
       const latSum = markers.reduce(

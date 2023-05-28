@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import LineGraph from "./LineGraph";
 import { DetailPage } from "./Leaflet";
 
@@ -8,7 +7,6 @@ const Dashboard: React.FC = () => {
     [date: string]: number;
   }>({});
   const [countriesData, setCountriesData] = useState([]);
-  const position = [51.505, -0.09];
 
   useEffect(() => {
     const fetchHistoricalData = async () => {
@@ -45,7 +43,7 @@ const Dashboard: React.FC = () => {
         <LineGraph data={historicalData} />
       </div>
       <div className="flex-grow">
-        <DetailPage />
+        <DetailPage markers={countriesData} />
       </div>
     </div>
   );

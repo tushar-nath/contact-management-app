@@ -88,7 +88,7 @@ const ContactList: React.FC = () => {
           <img src="./contact.png" alt="Contact" className="w-96 h-auto mb-4" />
           <p className="text-gray-500 text-lg">
             No contacts found, please add a contact using the Create Contact
-            button.
+            Button
           </p>
         </div>
       ) : (
