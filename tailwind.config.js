@@ -1,10 +1,15 @@
-/** @type {import('tailwindcss').Config} */
-export const purge = ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"];
-export const darkMode = false;
-export const theme = {
-  extend: {},
+module.exports = {
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: false,
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['"Sulphur Point"', "sans-serif"],
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 };
-export const variants = {
-  extend: {},
-};
-export const plugins = [];

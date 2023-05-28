@@ -29,14 +29,36 @@ export function DetailPage() {
     fetchData();
   }, []);
 
-  const location: LatLngExpression = [47.2154556, -1.5644531];
+  const calculateMapCenter = (): LatLngExpression => {
+    if (markers.length > 0) {
+      const latSum = markers.reduce(
+        (accumulator, marker: any) => accumulator + marker.countryInfo.lat,
+        0
+      );
+      const lngSum = markers.reduce(
+        (accumulator, marker: any) => accumulator + marker.countryInfo.long,
+        0
+      );
+      const avgLat = latSum / markers.length;
+      const avgLng = lngSum / markers.length;
+      return [avgLat, avgLng];
+    }
+    // Default center if no markers
+    return [47.2154556, -1.5644531];
+  };
+
+  const mapOptions = {
+    zoomSnap: 0.5, // Increment at which the zoom level changes
+    zoomDelta: 0.5, // Zoom level change when zooming in/out
+  };
 
   return (
     <>
       <MapContainer
-        center={location}
+        center={calculateMapCenter()}
         zoom={2}
-        style={{ width: "100%", height: 500 }}
+        style={{ width: "100%", height: 800 }}
+        {...mapOptions}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {markers.map((marker: any, index) => (

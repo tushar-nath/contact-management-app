@@ -71,27 +71,35 @@ const ContactList: React.FC = () => {
 
   return (
     <div className="bg-off-white p-4">
+      <div className="flex justify-end">
+        <button
+          className="mt-4 bg-[#131313] text-white py-2 px-4 rounded-lg block border border-solid"
+          onClick={handleCreateContact}
+        >
+          Create Contact
+        </button>
+      </div>
       <ul>
         {contacts.map((contact: Contact) => (
-          <li className="mt-4 p-4 bg-slate-100 rounded shadow" key={contact.id}>
+          <li className="mt-4 p-4 bg-[#F8F8F8] rounded shadow" key={contact.id}>
             <h2 className="text-xl font-bold">{contact.name}</h2>
             <p className="text-gray-800">
               <strong>Email:</strong> {contact.email}
             </p>
             <button
-              className="mt-2 bg-blue-700 text-white py-2 mr-2 px-4 rounded"
+              className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-4 rounded-lg border border-solid"
               onClick={() => handleViewDetails(contact)}
             >
               View Details
             </button>
             <button
-              className="mt-2 bg-green-700 text-white py-2 mx-2 px-4 rounded"
+              className="bg-white text-black pt-2 pb-1 px-6 rounded-lg border border-solid"
               onClick={() => handleEditContact(contact)}
             >
               Edit
             </button>
             <button
-              className="mt-2 bg-red-500 text-white py-2 mx-2 px-4 rounded"
+              className="mt-2 bg-red-500 text-white pt-2 pb-1 mx-2 px-4 rounded"
               onClick={() => handleDeleteContact(contact)}
             >
               Delete
@@ -110,7 +118,7 @@ const ContactList: React.FC = () => {
             <strong>Email:</strong> {selectedContact.email}
           </p>
           <button
-            className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
+            className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-8 rounded-lg border border-solid mt-2"
             onClick={() => setSelectedContact(null)}
           >
             Close
@@ -120,7 +128,7 @@ const ContactList: React.FC = () => {
 
       {editedContact && (
         <div className="mt-4 p-4 bg-white rounded shadow">
-          <h2>Edit Contact</h2>
+          <h2 className="text-xl font-bold">Edit Contact</h2>
           <input
             className="mb-2 p-1 border rounded"
             type="text"
@@ -138,24 +146,17 @@ const ContactList: React.FC = () => {
             }
           />
           <button
-            className="mt-2 bg-blue-700 text-white py-2 mx-2 px-4 rounded"
+            className="mt-2 bg-[#131313] text-white pt-2 pb-1 ml-3 px-6 rounded"
             onClick={handleSaveContact}
           >
             Save
           </button>
         </div>
       )}
-
-      <button
-        className="mt-4 bg-blue-700 text-white py-2 px-4 rounded mx-auto block"
-        onClick={handleCreateContact}
-      >
-        Create Contact
-      </button>
       <Modal
         isOpen={showCreateModal}
         onRequestClose={handleCloseCreateModal}
-        className="w-64 sm:w-96 bg-slate-100 rounded p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
+        className="w-64 sm:w-96 bg-[#F8F8F8] rounded-2xl p-4 border border-solid border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg"
       >
         <h2 className="text-lg font-bold mb-2 text-center">Create Contact</h2>
         <input
@@ -178,13 +179,13 @@ const ContactList: React.FC = () => {
         />
         <div className="flex justify-center">
           <button
-            className="mr-2 bg-green-500 text-white py-2 px-4 rounded"
+            className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-4 rounded-lg border border-solid"
             onClick={handleAddContact}
           >
             Add Contact
           </button>
           <button
-            className="bg-red-500 text-white py-2 px-4 rounded"
+            className="bg-white text-black pt-2 pb-1 px-4 rounded-lg border border-solid"
             onClick={handleCloseCreateModal}
           >
             Cancel

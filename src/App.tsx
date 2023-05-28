@@ -4,16 +4,20 @@ import ContactList from "./components/ContactList";
 import "tailwindcss/tailwind.css";
 import Dashboard from "./components/Dashboard";
 import { DetailPage } from "./components/Leaflet";
+import Sidebar from "./components/Sidebar";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/contact-list" element={<ContactList />} />
-          <Route path="/map" element={<DetailPage />} />
-        </Routes>
+      <div className="flex">
+        <Sidebar />
+        <div className="w-4/5">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/contact-list" element={<ContactList />} />
+            <Route path="/map" element={<DetailPage />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
