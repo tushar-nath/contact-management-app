@@ -83,34 +83,47 @@ const ContactList: React.FC = () => {
           Create Contact
         </button>
       </div>
-      <ul>
-        {contacts.map((contact: Contact) => (
-          <li className="mt-4 p-4 bg-[#F8F8F8] rounded shadow" key={contact.id}>
-            <h2 className="text-xl font-bold">{contact.name}</h2>
-            <p className="text-gray-800">
-              <strong>Email:</strong> {contact.email}
-            </p>
-            <button
-              className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-4 rounded-lg border border-solid"
-              onClick={() => handleViewDetails(contact)}
+      {contacts.length === 0 ? (
+        <div className="flex flex-col justify-center items-center h-full mt-36">
+          <img src="./contact.png" alt="Contact" className="w-96 h-auto mb-4" />
+          <p className="text-gray-500 text-lg">
+            No contacts found, please add a contact using the Create Contact
+            button.
+          </p>
+        </div>
+      ) : (
+        <ul>
+          {contacts.map((contact: Contact) => (
+            <li
+              className="mt-4 p-4 bg-[#F8F8F8] rounded shadow"
+              key={contact.id}
             >
-              View Details
-            </button>
-            <button
-              className="bg-white text-black pt-2 pb-1 px-6 rounded-lg border border-solid"
-              onClick={() => handleEditContact(contact)}
-            >
-              Edit
-            </button>
-            <button
-              className="mt-2 bg-red-500 text-white pt-2 pb-1 mx-2 px-4 rounded"
-              onClick={() => handleDeleteContact(contact)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+              <h2 className="text-xl font-bold">{contact.name}</h2>
+              <p className="text-gray-800">
+                <strong>Email:</strong> {contact.email}
+              </p>
+              <button
+                className="mr-2 bg-[#131313] text-white pt-2 pb-1 px-4 rounded-lg border border-solid"
+                onClick={() => handleViewDetails(contact)}
+              >
+                View Details
+              </button>
+              <button
+                className="bg-white text-black pt-2 pb-1 px-6 rounded-lg border border-solid"
+                onClick={() => handleEditContact(contact)}
+              >
+                Edit
+              </button>
+              <button
+                className="mt-2 bg-red-500 text-white pt-2 pb-1 mx-2 px-4 rounded"
+                onClick={() => handleDeleteContact(contact)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {selectedContact && (
         <Modal
