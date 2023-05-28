@@ -79,7 +79,7 @@ export function DetailPage() {
             </Marker>
           ))}
         </MapContainer>
-        <p className="text-center pt-4 text-gray-600 text-2xl">
+        <p className="text-center pt-4 mt-2 text-gray-600 text-xl">
           Country Specific Data
         </p>
       </div>
