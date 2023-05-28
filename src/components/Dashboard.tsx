@@ -40,11 +40,11 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/2 h-full">
+    <div className="flex flex-col h-screen">
+      <div className="flex-grow">
         <LineGraph data={historicalData} />
       </div>
-      <div className="w-1/2 h-full">
+      <div className="flex-grow">
         <DetailPage />
       </div>
     </div>

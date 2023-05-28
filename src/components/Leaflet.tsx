@@ -53,31 +53,36 @@ export function DetailPage() {
   };
 
   return (
-    <>
-      <MapContainer
-        center={calculateMapCenter()}
-        zoom={2}
-        style={{ width: "100%", height: 800 }}
-        {...mapOptions}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {markers.map((marker: any, index) => (
-          <Marker
-            key={index}
-            position={[marker.countryInfo.lat, marker.countryInfo.long]}
-            icon={icon}
-          >
-            <Popup>
-              <div>
-                <h3>{marker.country}</h3>
-                <p>Total Active Cases: {marker.active}</p>
-                <p>Total Recovered Cases: {marker.recovered}</p>
-                <p>Total Deaths: {marker.deaths}</p>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </>
+    <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-4 my-6 mx-auto">
+      <div className="w-full h-fit">
+        <MapContainer
+          center={calculateMapCenter()}
+          zoom={2}
+          style={{ width: "100%", height: 500 }}
+          {...mapOptions}
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {markers.map((marker: any, index) => (
+            <Marker
+              key={index}
+              position={[marker.countryInfo.lat, marker.countryInfo.long]}
+              icon={icon}
+            >
+              <Popup>
+                <div>
+                  <h3>{marker.country}</h3>
+                  <p>Total Active Cases: {marker.active}</p>
+                  <p>Total Recovered Cases: {marker.recovered}</p>
+                  <p>Total Deaths: {marker.deaths}</p>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+        <p className="text-center pt-4 text-gray-600 text-2xl">
+          Country Specific Data
+        </p>
+      </div>
+    </div>
   );
 }

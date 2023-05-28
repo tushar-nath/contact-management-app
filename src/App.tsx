@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <Router>
       <div className="flex">
         <Sidebar />
-        <div className="w-4/5">
+        <div className="w-4/5 overflow-y-auto">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/contact-list" element={<ContactList />} />
