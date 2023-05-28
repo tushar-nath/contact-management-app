@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { FadeLoader } from "react-spinners";
 import LineGraph from "./LineGraph";
-import { DetailPage } from "./Leaflet";
+import { Maps } from "./Maps";
 
 const fetchHistoricalData = async () => {
   const response = await fetch(
@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
         <LineGraph data={historicalDataQuery.data?.cases || {}} />
       </div>
       <div className="flex-grow">
-        <DetailPage markers={countriesDataQuery.data || []} />
+        <Maps markers={countriesDataQuery.data || []} />
       </div>
     </div>
   );

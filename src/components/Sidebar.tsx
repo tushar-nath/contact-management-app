@@ -12,16 +12,13 @@ const Sidebar: React.FC = () => {
       <div className="mt-28">
         <ul className="text-white text-center">
           <li className="my-6 text-xl">
-            <Link to="/dashboard" className="flex items-center justify-center">
+            <Link to="/" className="flex items-center justify-center">
               <FontAwesomeIcon icon={faChartBar} className="mr-2 mb-1" />
               Dashboard
             </Link>
           </li>
           <li className="my-6 text-xl">
-            <Link
-              to="/contact-list"
-              className="flex items-center justify-center"
-            >
+            <Link to="/contacts" className="flex items-center justify-center">
               <FontAwesomeIcon icon={faAddressBook} className="mr-2 mb-1" />
               Contact List
             </Link>

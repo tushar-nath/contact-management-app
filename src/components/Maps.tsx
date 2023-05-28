@@ -14,7 +14,7 @@ interface DetailPageProps {
   markers: any[]; // Update the type as per your marker data structure
 }
 
-export function DetailPage({ markers }: DetailPageProps) {
+export function Maps({ markers }: DetailPageProps) {
   const calculateMapCenter = (): LatLngExpression => {
     if (markers.length > 0) {
       const latSum = markers.reduce(
@@ -55,11 +55,26 @@ export function DetailPage({ markers }: DetailPageProps) {
               icon={icon}
             >
               <Popup>
-                <div>
-                  <h3>{marker.country}</h3>
-                  <p>Total Active Cases: {marker.active}</p>
-                  <p>Total Recovered Cases: {marker.recovered}</p>
-                  <p>Total Deaths: {marker.deaths}</p>
+                <div style={{ textAlign: "center" }}>
+                  <h3 style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>
+                    {marker.country}
+                  </h3>
+                  <p>
+                    <span style={{ fontWeight: "bold" }}>
+                      Total Active Cases:
+                    </span>{" "}
+                    {marker.active}
+                  </p>
+                  <p>
+                    <span style={{ fontWeight: "bold" }}>
+                      Total Recovered Cases:
+                    </span>{" "}
+                    {marker.recovered}
+                  </p>
+                  <p>
+                    <span style={{ fontWeight: "bold" }}>Total Deaths:</span>{" "}
+                    {marker.deaths}
+                  </p>
                 </div>
               </Popup>
             </Marker>
