@@ -1,49 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
+import { FadeLoader } from "react-spinners";
 import LineGraph from "./LineGraph";
 import { DetailPage } from "./Leaflet";
 
+const fetchHistoricalData = async () => {
+  const response = await fetch(
+    "https://disease.sh/v3/covid-19/historical/all?lastdays=all"
+  );
+  return response.json();
+};
+
+const fetchCountriesData = async () => {
+  const response = await fetch("https://disease.sh/v3/covid-19/countries");
+  return response.json();
+};
+
 const Dashboard: React.FC = () => {
-  const [historicalData, setHistoricalData] = useState<{
-    [date: string]: number;
-  }>({});
-  const [countriesData, setCountriesData] = useState([]);
+  const historicalDataQuery = useQuery("historicalData", fetchHistoricalData);
+  const countriesDataQuery = useQuery("countriesData", fetchCountriesData);
 
-  useEffect(() => {
-    const fetchHistoricalData = async () => {
-      try {
-        const response = await fetch(
-          "https://disease.sh/v3/covid-19/historical/all?lastdays=all"
-        );
-        const data = await response.json();
-        setHistoricalData(data.cases);
-      } catch (error) {
-        console.error("Error fetching historical data:", error);
-      }
-    };
+  if (historicalDataQuery.isLoading || countriesDataQuery.isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <FadeLoader color="#131313" />
+      </div>
+    );
+  }
 
-    const fetchCountriesData = async () => {
-      try {
-        const response = await fetch(
-          "https://disease.sh/v3/covid-19/countries"
-        );
-        const data = await response.json();
-        setCountriesData(data);
-      } catch (error) {
-        console.error("Error fetching countries data:", error);
-      }
-    };
-
-    fetchHistoricalData();
-    fetchCountriesData();
-  }, []);
+  if (historicalDataQuery.isError || countriesDataQuery.isError) {
+    return <div>Error fetching data</div>;
+  }
 
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-grow">
-        <LineGraph data={historicalData} />
+        <LineGraph data={historicalDataQuery.data?.cases || {}} />
       </div>
       <div className="flex-grow">
-        <DetailPage markers={countriesData} />
+        <DetailPage markers={countriesDataQuery.data || []} />
       </div>
     </div>
   );
