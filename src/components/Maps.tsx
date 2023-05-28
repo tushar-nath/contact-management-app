@@ -39,7 +39,7 @@ export function Maps({ markers }: DetailPageProps) {
   };
 
   return (
-    <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-4 my-6 mx-auto">
+    <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-4 my-6 mx-auto">
       <div className="w-full h-fit">
         <MapContainer
           center={calculateMapCenter()}

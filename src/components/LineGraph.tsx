@@ -24,7 +24,7 @@ const LineGraph: React.FC<LineGraphProps> = ({ data }) => {
   };
 
   return (
-    <div className="w-full max-w-4xl bg-white rounded-lg shadow-md px-2 pb-4 pt-8 my-6 mx-auto">
+    <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg px-2 pb-4 pt-8 my-6 mx-auto">
       <div className="flex justify-center">
         <LineChart
           width={850}
